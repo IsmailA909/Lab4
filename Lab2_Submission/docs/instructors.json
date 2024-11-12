@@ -1,0 +1,1 @@
+[{"name": "Dr Smith", "age": 45, "email": "smith@example.com", "instructor_id": "I1001", "assigned_courses": ["C101"]}, {"name": "Dr Brown", "age": 50, "email": "brown@example.com", "instructor_id": "I1002", "assigned_courses": ["C102"]}]

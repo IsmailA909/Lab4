@@ -1,0 +1,1 @@
+[{"name": "Alice Johnson", "age": 20, "email": "alice@example.com", "student_id": "S1001", "registered_courses": ["C101"]}, {"name": "Bob Smith", "age": 22, "email": "bob@example.com", "student_id": "S1002", "registered_courses": ["C102"]}]
