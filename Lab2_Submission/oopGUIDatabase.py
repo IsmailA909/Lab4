@@ -9,7 +9,7 @@ from PyQt5.QtWidgets import (
 DATABASE = 'university.db'
 
 def create_connection():
-    """ Create a database connection to the SQLite database specified by db_file """
+    """ Create a database connection to the SQLite database specified by db_file , i changed this line in a different account to demonstrate changes functionality is understood"""
     conn = None
     try:
         conn = sqlite3.connect(DATABASE)
