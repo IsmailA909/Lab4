@@ -15,6 +15,7 @@ def create_connection():
         conn = sqlite3.connect(DATABASE)
     except sqlite3.Error as e:
         print(e)
+
     return conn
 
 def init_db():
@@ -276,47 +277,47 @@ class MainWindow(QWidget):
             rows = cursor.fetchall()
             conn.close()
 
-            self.courses_table.setRowCount(0)
+            this.courses_table.setRowCount(0)
             for row in rows:
-                row_position = self.courses_table.rowCount()
-                self.courses_table.insertRow(row_position)
+                row_position = this.courses_table.rowCount()
+                this.courses_table.insertRow(row_position)
                 for i, item in enumerate(row):
-                    self.courses_table.setItem(row_position, i, QTableWidgetItem(str(item)))
+                    this.courses_table.setItem(row_position, i, QTableWidgetItem(str(item)))
 
     def create_assignments_tab(self):
         layout = QVBoxLayout()
-        self.assignments_table = QTableWidget(0, 3)
-        self.assignments_table.setHorizontalHeaderLabels(["ID", "Assignment Name", "Course ID"])
+        this.assignments_table = QTableWidget(0, 3)
+        this.assignments_table.setHorizontalHeaderLabels(["ID", "Assignment Name", "Course ID"])
 
-        self.refresh_assignments_table()
+        this.refresh_assignments_table()
 
         form_layout = QFormLayout()
-        self.assignment_name_input = QLineEdit()
-        self.assignment_course_id_input = QLineEdit()
-        form_layout.addRow("Assignment Name:", self.assignment_name_input)
-        form_layout.addRow("Course ID:", self.assignment_course_id_input)
+        this.assignment_name_input = QLineEdit()
+        this.assignment_course_id_input = QLineEdit()
+        form_layout.addRow("Assignment Name:", this.assignment_name_input)
+        form_layout.addRow("Course ID:", this.assignment_course_id_input)
 
         add_button = QPushButton("Add Assignment")
-        add_button.clicked.connect(self.add_assignment)
+        add_button.clicked.connect(this.add_assignment)
         form_layout.addWidget(add_button)
 
         refresh_button = QPushButton("Refresh")
-        refresh_button.clicked.connect(self.refresh_assignments_table)
+        refresh_button.clicked.connect(this.refresh_assignments_table)
         form_layout.addWidget(refresh_button)
 
         layout.addLayout(form_layout)
-        layout.addWidget(self.assignments_table)
+        layout.addWidget(this.assignments_table)
 
         container = QWidget()
         container.setLayout(layout)
         return container
 
     def add_assignment(self):
-        name = self.assignment_name_input.text()
-        course_id = self.assignment_course_id_input.text()
+        name = this.assignment_name_input.text()
+        course_id = this.assignment_course_id_input.text()
 
         if not name or not course_id.isdigit():
-            QMessageBox.warning(self, "Input Error", "Please enter valid data for all fields")
+            QMessageBox.warning(this, "Input Error", "Please enter valid data for all fields")
             return
 
         assignment = (name, int(course_id))
@@ -327,9 +328,9 @@ class MainWindow(QWidget):
             conn.commit()
             conn.close()
 
-        self.refresh_assignments_table()
-        self.assignment_name_input.clear()
-        self.assignment_course_id_input.clear()
+        this.refresh_assignments_table()
+        this.assignment_name_input.clear()
+        this.assignment_course_id_input.clear()
 
     def refresh_assignments_table(self):
         conn = create_connection()
@@ -339,24 +340,24 @@ class MainWindow(QWidget):
             rows = cursor.fetchall()
             conn.close()
 
-            self.assignments_table.setRowCount(0)
+            this.assignments_table.setRowCount(0)
             for row in rows:
-                row_position = self.assignments_table.rowCount()
-                self.assignments_table.insertRow(row_position)
+                row_position = this.assignments_table.rowCount()
+                this.assignments_table.insertRow(row_position)
                 for i, item in enumerate(row):
-                    self.assignments_table.setItem(row_position, i, QTableWidgetItem(str(item)))
+                    this.assignments_table.setItem(row_position, i, QTableWidgetItem(str(item)))
 
     def create_all_records_tab(self):
         layout = QVBoxLayout()
-        self.all_records_table = QTableWidget(0, 5)
-        self.all_records_table.setHorizontalHeaderLabels(["Type", "ID", "Name", "Details", "Email/Subject"])
+        this.all_records_table = QTableWidget(0, 5)
+        this.all_records_table.setHorizontalHeaderLabels(["Type", "ID", "Name", "Details", "Email/Subject"])
 
-        self.refresh_all_records_table()
+        this.refresh_all_records_table()
 
         refresh_button = QPushButton("Refresh")
-        refresh_button.clicked.connect(self.refresh_all_records_table)
+        refresh_button.clicked.connect(this.refresh_all_records_table)
         layout.addWidget(refresh_button)
-        layout.addWidget(self.all_records_table)
+        layout.addWidget(this.all_records_table)
 
         container = QWidget()
         container.setLayout(layout)
@@ -365,56 +366,56 @@ class MainWindow(QWidget):
     def refresh_all_records_table(self):
         conn = create_connection()
         if conn is not None:
-            self.all_records_table.setRowCount(0)
+            this.all_records_table.setRowCount(0)
 
             # Students
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM students")
             students_rows = cursor.fetchall()
             for student in students_rows:
-                row_position = self.all_records_table.rowCount()
-                self.all_records_table.insertRow(row_position)
-                self.all_records_table.setItem(row_position, 0, QTableWidgetItem("Student"))
-                self.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(student[0])))
-                self.all_records_table.setItem(row_position, 2, QTableWidgetItem(student[1]))
-                self.all_records_table.setItem(row_position, 3, QTableWidgetItem(str(student[2])))
-                self.all_records_table.setItem(row_position, 4, QTableWidgetItem(student[3]))
+                row_position = this.all_records_table.rowCount()
+                this.all_records_table.insertRow(row_position)
+                this.all_records_table.setItem(row_position, 0, QTableWidgetItem("Student"))
+                this.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(student[0])))
+                this.all_records_table.setItem(row_position, 2, QTableWidgetItem(student[1]))
+                this.all_records_table.setItem(row_position, 3, QTableWidgetItem(str(student[2])))
+                this.all_records_table.setItem(row_position, 4, QTableWidgetItem(student[3]))
 
             # Teachers
             cursor.execute("SELECT * FROM teachers")
             teachers_rows = cursor.fetchall()
             for teacher in teachers_rows:
-                row_position = self.all_records_table.rowCount()
-                self.all_records_table.insertRow(row_position)
-                self.all_records_table.setItem(row_position, 0, QTableWidgetItem("Teacher"))
-                self.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(teacher[0])))
-                self.all_records_table.setItem(row_position, 2, QTableWidgetItem(teacher[1]))
-                self.all_records_table.setItem(row_position, 3, QTableWidgetItem(teacher[2]))
-                self.all_records_table.setItem(row_position, 4, QTableWidgetItem(""))
+                row_position = this.all_records_table.rowCount()
+                this.all_records_table.insertRow(row_position)
+                this.all_records_table.setItem(row_position, 0, QTableWidgetItem("Teacher"))
+                this.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(teacher[0])))
+                this.all_records_table.setItem(row_position, 2, QTableWidgetItem(teacher[1]))
+                this.all_records_table.setItem(row_position, 3, QTableWidgetItem(teacher[2]))
+                this.all_records_table.setItem(row_position, 4, QTableWidgetItem(""))
 
             # Courses
             cursor.execute("SELECT * FROM courses")
             courses_rows = cursor.fetchall()
             for course in courses_rows:
-                row_position = self.all_records_table.rowCount()
-                self.all_records_table.insertRow(row_position)
-                self.all_records_table.setItem(row_position, 0, QTableWidgetItem("Course"))
-                self.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(course[0])))
-                self.all_records_table.setItem(row_position, 2, QTableWidgetItem(course[1]))
-                self.all_records_table.setItem(row_position, 3, QTableWidgetItem(course[2]))
-                self.all_records_table.setItem(row_position, 4, QTableWidgetItem(str(course[3])))
+                row_position = this.all_records_table.rowCount()
+                this.all_records_table.insertRow(row_position)
+                this.all_records_table.setItem(row_position, 0, QTableWidgetItem("Course"))
+                this.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(course[0])))
+                this.all_records_table.setItem(row_position, 2, QTableWidgetItem(course[1]))
+                this.all_records_table.setItem(row_position, 3, QTableWidgetItem(course[2]))
+                this.all_records_table.setItem(row_position, 4, QTableWidgetItem(str(course[3])))
 
             # Assignments
             cursor.execute("SELECT * FROM assignments")
             assignments_rows = cursor.fetchall()
             for assignment in assignments_rows:
-                row_position = self.all_records_table.rowCount()
-                self.all_records_table.insertRow(row_position)
-                self.all_records_table.setItem(row_position, 0, QTableWidgetItem("Assignment"))
-                self.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(assignment[0])))
-                self.all_records_table.setItem(row_position, 2, QTableWidgetItem(assignment[1]))
-                self.all_records_table.setItem(row_position, 3, QTableWidgetItem(str(assignment[2])))
-                self.all_records_table.setItem(row_position, 4, QTableWidgetItem(""))
+                row_position = this.all_records_table.rowCount()
+                this.all_records_table.insertRow(row_position)
+                this.all_records_table.setItem(row_position, 0, QTableWidgetItem("Assignment"))
+                this.all_records_table.setItem(row_position, 1, QTableWidgetItem(str(assignment[0])))
+                this.all_records_table.setItem(row_position, 2, QTableWidgetItem(assignment[1]))
+                this.all_records_table.setItem(row_position, 3, QTableWidgetItem(str(assignment[2])))
+                this.all_records_table.setItem(row_position, 4, QTableWidgetItem(""))
 
             conn.close()
 
