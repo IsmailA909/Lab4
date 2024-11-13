@@ -95,8 +95,14 @@ class MainWindow(QWidget):
 
         form_layout = QFormLayout()
         self.student_name_input = QLineEdit()
+        self.student_name_input.setPlaceholderText("Enter student's name")  # Add placeholder text
+
         self.student_age_input = QLineEdit()
+        self.student_age_input.setPlaceholderText("Enter student's age")  # Add placeholder text
+
         self.student_email_input = QLineEdit()
+        self.student_email_input.setPlaceholderText("Enter student's email")  # Add placeholder text
+
         form_layout.addRow("Name:", self.student_name_input)
         form_layout.addRow("Age:", self.student_age_input)
         form_layout.addRow("Email:", self.student_email_input)
@@ -121,7 +127,7 @@ class MainWindow(QWidget):
         age = self.student_age_input.text()
         email = self.student_email_input.text()
 
-        if not name or not age.isdigit() or not email:
+        if not name or not age.isdigit() or "@" not in email:
             QMessageBox.warning(self, "Input Error", "Please enter valid data for all fields")
             return
 
